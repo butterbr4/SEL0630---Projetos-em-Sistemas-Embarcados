@@ -1,0 +1,86 @@
+    1  ls
+    2  python - -version
+    3  pip --version
+    4  ls
+    5  cd Documents/
+    6  ls
+    7  python3 -m venv 0097
+    8  ls
+    9  source 0097/
+   10  source 0097/bin/activate
+   11  pip install gpiozero
+   12  pip install RPi.GPIO
+   13  ipconfig
+   14  ifconfig
+   15  ls
+   16  cd 0097/
+   17  ls
+   18  cd bin/
+   19  ls
+   20  cd ..
+   21  ls
+   22  mkdir projetos
+   23  ls
+   24  cd projeto
+   25  cd projetos
+   26  ls
+   27  nano led_botao.py
+   28  python led_botao.py
+   29  sudo pip3 install --upgrade RPi.GPIO
+   30  pip install --upgrade RPi.GPIO
+   31  python led_botao.py
+   32  pip install GPIO
+   33  python led_botao.py
+   34  pip remove GPIO
+   35  pip --help
+   36  pip uninstall GPIO
+   37  clear
+   38  python led_botao.py
+   39  pip freeze
+   40  pip install time
+   41  python led_botao.py
+   42  nano led_botao.py
+   43  python led_botao.py
+   44  sudo raspi-config
+   45  python led_botao.py
+   46  nano led_botao.py
+   47  python led_botao.py
+   48  pip install rpi-lgpio
+   49  python led_botao.py
+   50  nano led_botao.py
+   51  python led_botao.py
+   52  nano led_botao.py
+   53  python led_botao.py
+   54  nano led_botao.py
+   55  python led_botao.py
+   56  nano led_botao.py
+   57  python led_botao.py
+   58  nano led_botao.py
+   59  python led_botao.py
+   60  nano led_botao.py
+   61  python led_botao.py
+   62  nano led_botao.py
+   63  python led_botao.py
+   64  nano led_botao.py
+   65  python led_botao.py
+   66  nano led_botao.py
+   67  python led_botao.py
+   68  nano led_botao.py
+   69  python led_botao.py
+   70  nano led_botao.py
+   71  python led_botao.py
+   72  nano led_botao.py
+   73  python led_botao.py
+   74  nano led_botao.py
+   75  python led_botao.py
+   76  nano led_botao.py
+   77  python led_botao.py
+   78  nano led_botao.py
+   79  python led_botao.py
+   80  nano led_botao.py
+   81  python led_botao.py
+   82  ls
+   83  nano cronometro_led.py
+   84  python cronometro_led.py
+   85  nano cronometro_led.py
+   86  history > historico_comandos.txt
