@@ -212,15 +212,84 @@ monitor_light()
 ### Objetivos
 Introduzir conceitos de computação paralela em sistemas embarcados usando threads e processos para melhorar a eficiência e resposta do sistema.
 
-### Procedimentos
-1. Implementação de threads para permitir que múltiplas tarefas ocorram simultaneamente, como piscar um LED e contar aleatoriamente.
-2. Uso de mutexes e semáforos para gerenciar o acesso a recursos compartilhados.
+### Implementação do uso de threads para iniciar uma contagem regressiva pelo botão enquanto um LED pisca.
+O LED pisca enquanto a contagem regressiva está em andamento, ao final da contagem, o LED para de piscar e permanece aceso.
 
-### Resultados
-Desenvolvimento de um sistema onde processos paralelos melhoram a resposta do sistema a eventos externos, demonstrando o uso eficaz de multithreading e sincronização de processos.
+![circuito_1a](./Imagens/circuito1b.png)
+![circuito3](./Imagens/circuito3.png)
 
----
+### [Script em python](./Codigos/cronometro_led_thread.py)
+```python
+import RPi.GPIO as GPIO
+import time
+import threading
 
-## Conclusão
-As práticas abordaram conceitos fundamentais para programação em sistemas embarcados usando a Raspberry Pi, desde controle básico de GPIO até aplicações avançadas envolvendo PWM, sensores e computação paralela, preparando os alunos para desenvolvimentos mais complexos e integrados.
+# Configuração dos pinos GPIO
+LED_PIN = 16
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(LED_PIN, GPIO.OUT)
+
+def blink_led():
+    """Função para fazer o LED piscar continuamente."""
+    while not stop_event.is_set():
+        GPIO.output(LED_PIN, GPIO.HIGH)  # Acende o LED
+        time.sleep(0.5)  # LED fica aceso por 0.5 segundos
+        GPIO.output(LED_PIN, GPIO.LOW)   # Apaga o LED
+        time.sleep(0.5)  # LED fica apagado por 0.5 segundos
+
+def countdown_timer(seconds):
+    """Função para realizar a contagem regressiva."""
+    while seconds:
+        # Usando divmod para converter segundos em minutos e segundos
+        minutes, secs = divmod(seconds, 60)
+        time_format = '{:02d}:{:02d}'.format(minutes, secs)
+        print(time_format, end='\r')  # Imprime o tempo formatado na mesma linha
+        time.sleep(1)  # Espera por 1 segundo
+        seconds -= 1
+    
+    print("\nContagem finalizada!")
+    stop_event.set()  # Sinaliza para parar o piscar do LED
+    GPIO.output(LED_PIN, GPIO.HIGH)  # Mantém o LED aceso ao final da contagem
+
+def get_valid_input():
+    """Função para solicitar e validar a entrada do usuário."""
+    while True:
+        try:
+            # Solicita um valor ao usuário
+            time_input = input("Digite o tempo em segundos para a contagem regressiva: ")
+            time_input = int(time_input)  # Converte a entrada para inteiro
+            
+            # Verifica se o valor é positivo
+            if time_input <= 0:
+                print("O número deve ser positivo. Tente novamente.")
+            else:
+                return time_input  # Retorna o valor válido
+        except ValueError:
+            print("O valor digitado deve ser um número inteiro. Tente novamente.")
+
+try:
+    # Inicializa o evento para sinalizar quando parar o LED
+    stop_event = threading.Event()
+
+    # Solicita a entrada do usuário e realiza a contagem
+    time_in_seconds = get_valid_input()
+
+    # Cria e inicia a thread para piscar o LED
+    led_thread = threading.Thread(target=blink_led)
+    led_thread.start()
+
+    # Realiza a contagem regressiva na thread principal
+    countdown_timer(time_in_seconds)
+
+    # Espera a thread do LED terminar após a contagem regressiva
+    led_thread.join()
+
+except KeyboardInterrupt:
+    print("\nPrograma interrompido pelo usuário.")
+    stop_event.set()  # Para o piscar do LED caso Ctrl+C seja pressionado
+
+finally:
+    GPIO.cleanup()  # Limpa a configuração dos pinos GPIO
+```
+
 
