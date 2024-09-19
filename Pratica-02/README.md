@@ -175,18 +175,37 @@ finally:
 
 ```
 
-### Exploração de aplicações práticas usando sensores como o HC-SR04 para medição de distâncias.
-![circuito_1b](./Imagens/circuito1b.png)
+### Utilização do sensor LDR para monitorar luminosidade do ambiente.
+![circuito2](./Imagens/circuito2.png)
+![circuito_ldr](./Imagens/circuito_ldr.png)
 
-### [Script em python](./Codigos)
+### [Script em python](./Codigos/ldr.py)
 ```python
+from gpiozero import LightSensor
+import time
 
+# Configuração do sensor de luz
+ldr = LightSensor(4)  # Sensor de luz no pino GPIO 4
+
+def monitor_light():
+    try:
+        while True:
+            light_value = ldr.value  # Obter o valor do sensor de luz (0 a 1)
+            print(f"Nível de Luz: {light_value:.2f}")  # Imprimir com 2 casas decimais
+            
+            time.sleep(1)  # Pausa de 1 segundo entre leituras
+    except KeyboardInterrupt:
+        print("\nPrograma interrompido.")
+    finally:
+        print("Encerrando o monitoramento.")
+
+# Executar a função de monitoramento
+monitor_light()
 ```
 
-### Resultados
-Desenvolvimento de scripts que modulam a intensidade de um LED via PWM e utilizam o sensor de distância HC-SR04 para ativar um LED baseado na proximidade de um objeto.
+### [Histórico dos comandos](./Codigos/historico_comandos_02.txt)
 
----
+
 
 ## Parte 3: Computação Paralela com Processos e Threads
 
